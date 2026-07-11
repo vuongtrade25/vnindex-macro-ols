@@ -2,16 +2,31 @@
 # 1. CÀI PACKAGE NẾU CHƯA CÓ
 # ==========================================
 
+options(
+  repos = c(
+    CRAN = "https://cloud.r-project.org"
+  )
+)
+
 packages <- c(
   "car",
   "lmtest"
 )
 
 for (pkg in packages) {
-  if (!require(pkg, character.only = TRUE)) {
-    install.packages(pkg)
-    library(pkg, character.only = TRUE)
+  if (!requireNamespace(pkg, quietly = TRUE)) {
+    cat("Đang cài package:", pkg, "\n")
+
+    install.packages(
+      pkg,
+      dependencies = TRUE
+    )
   }
+
+  library(
+    pkg,
+    character.only = TRUE
+  )
 }
 
 
